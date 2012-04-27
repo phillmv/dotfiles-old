@@ -1,1 +1,0 @@
-/Users/phillmv/code/reslate2/reslate.vim
