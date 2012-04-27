@@ -15,6 +15,12 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 export PROMPT_COMMAND="history -a"
 
+
+alias f='open -a Finder '
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
 alias g='open -a macvim'
 alias cherry='git cherry-pick'
 alias status='git status'
