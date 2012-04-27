@@ -1,14 +1,45 @@
-set nocompatible               " VIM extensions, not very VI compatible;
-                               "   this setting must be set because when vim
-                               "   finds a .vimrc on startup, it will set
-                               "   itself as "compatible" with vi
+set nocompatible             
 
-if has("syntax")
-	syntax on
-endif
+call pathogen#infect()
+syntax on
+filetype on                    " enable filetype detection
+filetype plugin indent on
 
-map  BdW
-imap  BdWi 
+" -------------------------------
+"  opções
+" -------------------------------
+set wrap                 " wrap long lines
+set autoindent           " indent at the same level of the previous line
+
+set tabstop=4
+set shiftwidth=2	" when reindenting how far?
+set expandtab
+set backspace=2 	" allow backspacing over everything in insert mode
+
+set hidden
+
+set hlsearch " highlight search
+set incsearch
+set ignorecase
+set showmatch " show matching parens, etc
+
+set autoread  " load file when it changes
+set autowrite " when switching files autosave
+
+set number
+
+" VERA SANS MONO FO LIFE
+set guifont=Bitstream\ Vera\ Sans\ Mono:h12
+set guioptions-=T " no macvim toolbar
+
+" for commandT iirc
+set wildignore+=*.log,*.jpg,*.png,*.gif,*.swp,vendor/rails/**
+
+
+set visualbell             " shut the fuck up
+
+
+colorscheme reslate
 
 if has('cmdline_info')
     set ruler                  " show the ruler
@@ -24,46 +55,21 @@ if has('statusline')
     set statusline=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P
 endif
 
-filetype on                    " enable filetype detection
-filetype plugin indent on
 
-set wrap                       " wrap long lines
-set autoindent                 " indent at the same level of the previous line
 "set smartindent                " Do smart indenting...
-set shiftwidth=2               " use indents of 2 spaces
-set smarttab                   " Smart tabbing, makes backspace be nice.
-set comments=sO:*-,mO:*,exO:*/,s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
-set formatoptions+=tcq         " basic formatting of text and comments
-set matchpairs+=<:>            " match, to be used with % 
-
-auto BufNewFile,BufRead *.[CcHh] set cindent expandtab si ai tabstop=4 shiftwidth=4
-
-auto BufNewFile,BufRead *.[js] set cindent expandtab ai tabstop=2 shiftwidth=2
-
-auto BufNewFile,BufRead *.java,*.jsp set expandtab si ai tabstop=4 shiftwidth=4 comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:- sts=4
-auto BufNewFile,BufRead *.php set expandtab si ai tabstop=4 shiftwidth=4 comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-  sts=4
-auto BufNewFile,BufRead *.pl,*.py set expandtab si ai tabstop=4 shiftwidth=4 comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-  sts=4
-auto BufNewFile,BufRead *.pyt set filetype=xml
-auto BufNewFile,BufRead Scons* set filetype=python
-auto BufNewFile,BufRead *.hs set expandtab si ai tabstop=4 shiftwidth=4 sts=4
-auto FileType mail set tw=74
+"set comments=sO:*-,mO:*,exO:*/,s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
+"set formatoptions+=tcq         " basic formatting of text and comments
+"set matchpairs+=<:>            " match, to be used with % 
 
 auto BufNewFile,BufRead [cC]apfile set filetype=ruby
 auto BufNewFile,BufRead Gemfile set filetype=ruby
 auto BufNewFile,BufRead *.ru set filetype=ruby
-auto BufNewFile,BufRead *.erb set filetype=eruby shiftwidth=4 tabstop=4
+auto BufNewFile,BufRead *.erb set filetype=eruby
 auto BufNewFile,BufRead *.sc set filetype=scheme
 
-set showmatch
-set autowrite
-set backspace=2
-
-colorscheme reslate
-set hlsearch
-set number
-
-set hidden
-set incsearch
+" ----------------------------------
+" desplante de mulheres novas
+" ----------------------------------
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
@@ -75,20 +81,19 @@ map <Leader>tr :CommandTFlush<CR>
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 nnoremap ,rails :cd b:rails_root<CR>:pwd<CR>
 
-set wildignore+=*.log,*.jpg,*.png,*.gif,*.swp,vendor/rails/**
 let g:CommandTMatchWindowAtTop=1
 
-set guifont=Bitstream\ Vera\ Sans\ Mono:h12
-
-set guioptions-=T 
-
-nmap <Down> gj
-vmap <Down> gj
-imap <Down> <C-O>gj
-
-nmap <Up> gk
-vmap <Up> gk
-imap <Up> <C-O>gk
+" sane movement
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
 inoremap jj <Esc>
 
@@ -101,3 +106,7 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+autocmd vimenter * NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd VimEnter * wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
