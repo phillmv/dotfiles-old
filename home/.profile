@@ -6,7 +6,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export EDITOR='vim'
 export PS1='\[\033[01;32m\]\h\[\033[01;34m\]:\w $\[\033[00m\] '
 export MANPATH=/Users/phillmv/local/share/man:$MANPATH
-export PATH=$(brew --prefix coreutils)/libexec/gnubin:/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/Users/phillmv/local/bin:/sw/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
+export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/Users/phillmv/local/bin:/sw/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
 alias ls='ls --color'
 set -o vi
 
