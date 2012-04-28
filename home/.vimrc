@@ -1,4 +1,4 @@
-set nocompatible             
+set nocompatible
 
 call pathogen#infect()
 syntax on
@@ -52,7 +52,16 @@ endif
 
 if has("gui_macvim")
     set macmeta " Necessary for using meta key in mappings on OSX
-    "let macvim_skip_cmd_opt_movement = 1 " Prevent MacVim from mapping fake HOME/END to M-arrow keys.
+    let macvim_skip_cmd_opt_movement = 1 " Prevent MacVim from mapping fake HOME/END to M-arrow keys.
+
+    " alas I am still a fan of the SYSTEM WIDE DEFAULT OS BEHAVIOUR
+    map <D-right> $
+    map <D-left> 0
+    imap <D-right> <Esc>$a
+    imap <D-left> <Esc>0i
+
+    imap <M-left> <Esc>Bi
+    imap <M-right> <Esc>lWi
 endif
 
 " Common file types.
