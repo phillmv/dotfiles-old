@@ -13,6 +13,7 @@ set autoindent           " indent at the same level of the previous line
 
 set tabstop=4
 set shiftwidth=2	" when reindenting how far?
+set softtabstop=2
 set expandtab
 set backspace=2 	" allow backspacing over everything in insert mode
 
@@ -32,7 +33,6 @@ set number
 set guifont=Bitstream\ Vera\ Sans\ Mono:h12
 set guioptions-=T " no macvim toolbar
 
-" for commandT iirc
 set wildignore+=*.log,*.jpg,*.png,*.gif,*.swp,vendor/rails/**
 
 
