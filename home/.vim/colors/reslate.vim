@@ -12,11 +12,9 @@ let colors_name="reslate"
 
 "hi String guibg=bg guifg=#87ceeb gui=none
 hi ColorColumn      term=reverse ctermbg=4 guibg=DarkRed
-hi Comment          term=bold ctermfg=11 guifg=#80a0ff
-hi Comment          guibg=bg guifg=#80a0ff gui=none " nice blue
+hi Comment          term=bold ctermfg=11 guibg=bg guifg=#80a0ff gui=none " nice blue
 hi Conceal          ctermfg=7 ctermbg=8 guifg=LightGrey guibg=DarkGrey
-hi Constant         term=underline ctermfg=13 guifg=#ffa0a0
-hi Constant         guibg=bg guifg=#ffa0a0 gui=none
+hi Constant         ctermfg=13 ctermfg=13 guibg=bg guifg=#ffa0a0 gui=none
 hi Cursor           guifg=slategrey guibg=khaki
 hi CursorColumn     term=reverse ctermbg=8 guibg=Grey40
 hi CursorLine       term=underline cterm=underline guibg=Grey40
@@ -30,8 +28,7 @@ hi ErrorMsg         term=standout cterm=bold ctermfg=7 ctermbg=1 guifg=White gui
 hi FoldColumn       term=standout ctermfg=4 ctermbg=7 guifg=grey20 guibg=black
 hi Folded           term=standout ctermfg=7 ctermbg=8 guifg=grey40 guibg=black
 hi Function         guibg=bg guifg=#ffdead gui=none
-hi Identifier       term=underline cterm=bold ctermfg=11 guifg=#40ffff
-hi Identifier       guibg=bg guifg=#40ffff gui=none
+hi Identifier       term=underline cterm=bold ctermfg=11 guibg=bg guifg=#40ffff gui=none
 hi IncSearch        term=reverse ctermfg=14 ctermbg=10 guifg=wheat guibg=peru
 hi Include          guibg=bg guifg=#ff0000 gui=none
 hi LineNr           term=underline ctermfg=3 guifg=grey50
@@ -46,20 +43,17 @@ hi Pmenu            ctermbg=13 guibg=Magenta
 hi PmenuSbar        ctermbg=7 guibg=Grey
 hi PmenuSel         ctermbg=8 guibg=DarkGrey
 hi PmenuThumb       cterm=reverse gui=reverse
-hi PreProc          term=underline ctermfg=9 guifg=#ff80ff
-hi PreProc          guibg=bg guifg=#ff80ff gui=none
+hi PreProc          term=underline ctermfg=9 guibg=bg guifg=#ff80ff gui=none
 hi Question         term=standout ctermfg=10 gui=bold guifg=springgreen
 hi Search           term=reverse ctermfg=7 ctermbg=9 guifg=wheat guibg=peru
 hi SignColumn       term=standout ctermfg=11 ctermbg=8 guifg=Cyan guibg=Grey
-hi Special          term=bold ctermfg=12 guifg=Orange
-hi Special          guibg=bg guifg=#ffa500 gui=none
+hi Special          term=bold ctermfg=12  guibg=bg guifg=#ffa500 gui=none
 hi SpecialKey       term=bold ctermfg=2 guifg=yellowgreen
 hi SpellBad         term=reverse ctermbg=12 gui=undercurl guisp=Red
 hi SpellCap         term=reverse ctermbg=9 gui=undercurl guisp=Blue
 hi SpellLocal       term=underline ctermbg=11 gui=undercurl guisp=Cyan
 hi SpellRare        term=reverse ctermbg=13 gui=undercurl guisp=Magenta
-hi Statement        term=bold ctermfg=14 gui=bold guifg=#ffff60
-hi Statement        guibg=bg guifg=#ffff60 gui=bold
+hi Statement        term=bold ctermfg=14 guibg=bg guifg=#ffff60 gui=bold
 hi StatusLine       term=bold,reverse cterm=bold,reverse guifg=grey40 guibg=white
 hi StatusLineNC     term=reverse cterm=reverse guifg=grey15 guibg=#c2bfa5
 hi String           guibg=bg guifg=#40A629 gui=none " dark greenish
@@ -69,8 +63,7 @@ hi TabLineSel       term=bold cterm=bold gui=bold
 hi Title            term=bold cterm=bold ctermfg=14 gui=bold guifg=gold
 hi Title            guibg=bg guifg=#ffd700 gui=bold " nice orange
 hi Todo             guibg=#ffff00 guifg=#0000ff gui=none
-hi Type             term=underline ctermfg=10 gui=bold guifg=#60ff60
-hi Type             guibg=bg guifg=#60ff60 gui=bold
+hi Type             term=underline ctermfg=10 guibg=bg guifg=#60ff60 gui=bold
 hi Underlined       guibg=bg guifg=#80a0ff gui=underline
 hi VertSplit        term=reverse cterm=reverse guifg=grey15 guibg=#c2bfa5
 hi Visual           term=reverse cterm=reverse guifg=khaki guibg=olivedrab
