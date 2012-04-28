@@ -35,9 +35,7 @@ set guioptions-=T " no macvim toolbar
 
 set wildignore+=*.log,*.jpg,*.png,*.gif,*.swp,vendor/rails/**
 
-
-set visualbell             " shut the fuck up
-
+set visualbell  " shut the fuck up
 
 colorscheme reslate
 
@@ -106,7 +104,9 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-autocmd vimenter * NERDTree
-autocmd vimenter * if !argc() | NERDTree | endif
-autocmd VimEnter * wincmd p
+" set up default nerdtree settings
+autocmd vimenter * NERDTree " open by default
+autocmd vimenter * if !argc() | NERDTree | endif " open even if no files are selected
+autocmd VimEnter * wincmd p " set focus on opened buffer and not nerdtree
+" quit when nerdtree is the last buffer standing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
