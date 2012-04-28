@@ -17,15 +17,12 @@ set softtabstop=2
 set expandtab
 set backspace=2 	" allow backspacing over everything in insert mode
 
-set hidden
-
 set hlsearch " highlight search
 set incsearch
 set ignorecase
 set showmatch " show matching parens, etc
 
 set autoread  " load file when it changes
-set autowrite " when switching files autosave
 
 set number
 
@@ -53,12 +50,12 @@ if has('statusline')
     set statusline=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P
 endif
 
+if has("gui_macvim")
+    set macmeta " Necessary for using meta key in mappings on OSX
+    "let macvim_skip_cmd_opt_movement = 1 " Prevent MacVim from mapping fake HOME/END to M-arrow keys.
+endif
 
-"set smartindent                " Do smart indenting...
-"set comments=sO:*-,mO:*,exO:*/,s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
-"set formatoptions+=tcq         " basic formatting of text and comments
-"set matchpairs+=<:>            " match, to be used with % 
-
+" Common file types.
 auto BufNewFile,BufRead [cC]apfile set filetype=ruby
 auto BufNewFile,BufRead Gemfile set filetype=ruby
 auto BufNewFile,BufRead *.ru set filetype=ruby
@@ -72,9 +69,29 @@ auto BufNewFile,BufRead *.sc set filetype=scheme
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <Leader>1 :NERDTree<CR>
+
+" make commandT go from the root project folder
 map <Leader>r :exe "CommandT" b:rails_root<CR>
 map <Leader>t :CommandT<CR>
 map <Leader>tr :CommandTFlush<CR>
+
+" Dealing with panes
+map <M-right> <C-w>l
+map <M-left> <C-w>h
+map <M-down> <C-w>j
+map <M-up> <C-w>k
+
+map <M-,> :split<CR> " Horizontal split
+map <M-.> :vsplit<CR> " Vertical split
+map <M-/> :close<CR> 
+
+map <M-<> <C-w>K " Convert vertical to horizontal split
+map <M->> <C-w>L " Convert horizontal to vertical split
+
+""" Buffers
+map <M-]> :bnext<CR>
+map <M-[> :bprev<CR>
+map <M-backspace> :bdelete<CR>
 
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 nnoremap ,rails :cd b:rails_root<CR>:pwd<CR>
