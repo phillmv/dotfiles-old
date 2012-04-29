@@ -12,14 +12,16 @@ set wrap                  " wrap long lines
 set autoindent            " indent at the same level of the previous line
 
 set tabstop=4
-set shiftwidth=2	      " when reindenting how far?
+set shiftwidth=2          " when reindenting how far?
 set softtabstop=2
 set expandtab
-set backspace=2 	      " allow backspacing over everything in insert mode
+set backspace=2           " allow backspacing over everything in insert mode
 
+" Searching
 set hlsearch              " highlight search
 set incsearch
-set ignorecase
+set ignorecase    
+set smartcase             " ... unless they contain at least one capital letter
 set showmatch             " show matching parens, etc
 
 set autoread              " load file when it changes
@@ -27,14 +29,25 @@ set autoread              " load file when it changes
 " everything buffer wise that happens is 'intentional'
 
 set number
+set ruler
+set visualbell            " shut the fuck up
 
 " VERA SANS MONO FO LIFE
 set guifont=Bitstream\ Vera\ Sans\ Mono:h12
 set guioptions-=T         " no macvim toolbar
 
 set wildignore+=*.log,*.jpg,*.png,*.gif,*.swp,vendor/rails/**
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+set wildignore+=*.swp,*~,._*
 
-set visualbell            " shut the fuck up
+""
+"" Backup and swap files
+""
+
+set backupdir=~/.vim/_backup//    " where to put backup files.
+set directory=~/.vim/_temp//      " where to put swap files.
 
 colorscheme reslate
 
@@ -47,14 +60,16 @@ if has('cmdline_info')
 endif
 
 if has('statusline')
-    set laststatus=1      " show statusline only if there are > 1 windows
+    set laststatus=2     
     " a statusline, also on steroids
-    set statusline=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P
+    set statusline=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P[%b]
 endif
 
 if has("gui_macvim") && has("gui_running")
     set macmeta           " Necessary for using meta key in mappings on OSX
     let macvim_skip_cmd_opt_movement = 1 " Prevent MacVim from mapping fake HOME/END to M-arrow keys.
+    let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
+    
 
     " alas I am still a fan of the SYSTEM WIDE DEFAULT OS BEHAVIOUR
     map <D-right> $
@@ -177,6 +192,9 @@ auto BufNewFile,BufRead Gemfile set filetype=ruby
 auto BufNewFile,BufRead *.ru set filetype=ruby
 auto BufNewFile,BufRead *.erb set filetype=eruby
 auto BufNewFile,BufRead *.sc set filetype=scheme
+auto BufNewFile,BufRead *.json set ft=javascript
+au FileType make set noexpandtab
+
 
 " ----------------------------------
 " MAPPINGS
@@ -191,7 +209,7 @@ map <Leader>r :exe "CommandT" b:rails_root<CR>
 map <Leader>t :CommandT<CR>
 map <Leader>tr :CommandTFlush<CR>
 
-" Dealing with panes - thanks, Andrey
+" Dealing with splits - thanks, Andrey
 map <M-right> <C-w>l
 map <M-left> <C-w>h
 map <M-down> <C-w>j
@@ -234,12 +252,13 @@ inoremap jj <Esc>
 cmap w!! %!sudo tee > /dev/null %
 
 " upper/lower word
-nmap <leader>u mQviwU`Q
-nmap <leader>l mQviwu`Q
+" selection reversed from Janus
+nmap <leader>U mQviwU`Q
+nmap <leader>L mQviwu`Q
 
 " upper/lower first char of word
-nmap <leader>U mQgewvU`Q
-nmap <leader>L mQgewvu`Q
+nmap <leader>u mQgewvU`Q
+nmap <leader>l mQgewvu`Q
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>
