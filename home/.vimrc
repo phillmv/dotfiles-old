@@ -62,7 +62,8 @@ endif
 if has('statusline')
     set laststatus=2     
     " a statusline, also on steroids
-    set statusline=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P[%b]
+    set statusline=%{fugitive#statusline()}
+    set statusline+=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P[%b]
 endif
 
 if has("gui_macvim") && has("gui_running")
