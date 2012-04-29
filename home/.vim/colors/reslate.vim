@@ -84,3 +84,6 @@ hi NERDTreeDir      guifg=#80a0ff
 hi NERDTreeDirSlash guifg=#80a0ff
 hi NERDTreeUp       guifg=#40A629
 
+" for completion menu
+hi Pmenu ctermbg=238 guibg=brown gui=bold
+
