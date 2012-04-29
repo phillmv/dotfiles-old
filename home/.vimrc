@@ -131,6 +131,12 @@ if has("gui_macvim") && has("gui_running")
     imap <D-8> <Esc>8gt
     map  <D-9> 9gt
     imap <D-9> <Esc>9gt
+
+    " NERDCommenter
+    vmap <D-">  <Plug>NERDCommenterAlignBoth
+    vmap <D-\>  <Plug>NERDCommenterToggle
+    nmap <D-\>  <Plug>NERDCommenterToggle
+
   else
 
     " Map command-[ and command-] to indenting or outdenting
@@ -243,6 +249,8 @@ vnoremap <Down> gj
 vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
+vmap <left> h
+vmap <right> l
 
 inoremap jj <Esc>
 
