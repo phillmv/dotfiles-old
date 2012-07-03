@@ -46,8 +46,8 @@ set wildignore+=*.swp,*~,._*
 "" Backup and swap files
 ""
 
-set backupdir=~/.vim/_backup//    " where to put backup files.
-set directory=~/.vim/_temp//      " where to put swap files.
+set backupdir=~/.vim/_backup/    " where to put backup files.
+set directory=~/.vim/_temp/      " where to put swap files.
 
 colorscheme reslate
 
@@ -66,11 +66,30 @@ if has('statusline')
     set statusline+=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P[%b]
 endif
 
+" I forget. I think this changes the mode macvim goes into
+" when you select text with the mouse. (I want visual)
+set selectmode=
+imap <S-up> <Esc>vk
+imap <S-down> <Esc>vj
+imap <S-left> <Esc>vh
+imap <S-right> <Esc>vl
+
+map <S-up> <Esc>vk
+map <S-down> <Esc>vj
+map <S-left> <Esc>vh
+map <S-right> <Esc>vl
+
+vmap <S-up> k
+vmap <S-down> j
+vmap <S-left> h
+vmap <S-right> l
+
+
 if has("gui_macvim") && has("gui_running")
     set macmeta           " Necessary for using meta key in mappings on OSX
     let macvim_skip_cmd_opt_movement = 1 " Prevent MacVim from mapping fake HOME/END to M-arrow keys.
-    let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
-    
+    "let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
+       
 
     " alas I am still a fan of the SYSTEM WIDE DEFAULT OS BEHAVIOUR
     map <D-right> $
@@ -134,8 +153,8 @@ if has("gui_macvim") && has("gui_running")
     imap <D-9> <Esc>9gt
 
     " NERDCommenter
-    vmap <D-">  <Plug>NERDCommenterAlignBoth
-    vmap <D-\>  <Plug>NERDCommenterToggle
+    vmap <D-">  <Plug>NERDCommenterAlignBoth gv
+    vmap <D-\>  <Plug>NERDCommenterToggle gv
     nmap <D-\>  <Plug>NERDCommenterToggle
 
   else
@@ -195,7 +214,7 @@ endif
 
 " Common file types.
 auto BufNewFile,BufRead [cC]apfile set filetype=ruby
-auto BufNewFile,BufRead Gemfile set filetype=ruby
+auto BufNewFile,BufRead Gemfile* set filetype=ruby
 auto BufNewFile,BufRead *.ru set filetype=ruby
 auto BufNewFile,BufRead *.erb set filetype=eruby
 auto BufNewFile,BufRead *.sc set filetype=scheme
@@ -222,8 +241,8 @@ map <M-left> <C-w>h
 map <M-down> <C-w>j
 map <M-up> <C-w>k
 
-map <M-,> :split<CR> " Horizontal split
-map <M-.> :vsplit<CR> " Vertical split
+map <M-,> :split<CR><C-w>j " Horizontal split
+map <M-.> :vsplit<CR><C-w>l " Vertical split
 map <M-/> :close<CR> 
 
 map <M-<> <C-w>K " Convert vertical to horizontal split
@@ -296,6 +315,8 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 " MISC FUN
 " -------------------
 
+nnoremap <F3> :NumbersToggle<CR>
+
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
@@ -306,8 +327,8 @@ function! <SID>SynStack()
 endfunc
 
 " set up default nerdtree settings
-autocmd vimenter * NERDTree " open by default
-autocmd vimenter * if !argc() | NERDTree | endif " open even if no files are selected
+"autocmd vimenter * NERDTree " open by default
+"autocmd vimenter * if !argc() | NERDTree | endif " open even if no files are selected
 autocmd VimEnter * wincmd p     " set focus on opened buffer and not nerdtree
 " quit when nerdtree is the last buffer standing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

@@ -10,7 +10,7 @@ export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/git/bin:/
 alias ls='ls --color'
 set -o vi
 
-export HISTSIZE=2000
+export HISTSIZE=5000
 export HISTCONTROL=ignoreboth
 shopt -s histappend
 export PROMPT_COMMAND="history -a"
@@ -22,6 +22,7 @@ alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 alias g='open -a macvim'
+alias m='mvim'
 alias cherry='git cherry-pick'
 alias status='git status'
 alias branch='git branch'
@@ -35,5 +36,8 @@ alias ack='ack -a'
 alias be="bundle exec"
 alias bes="be snapshot"
 alias prc='pry -r .config/environment'
+alias redis='redis-server /usr/local/etc/redis.conf'
+alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
