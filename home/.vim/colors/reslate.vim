@@ -36,7 +36,7 @@ hi MatchParen       term=reverse ctermbg=3 guibg=DarkCyan
 hi ModeMsg          term=bold ctermfg=6 gui=bold guifg=goldenrod
 hi MoreMsg          term=bold ctermfg=2 gui=bold guifg=SeaGreen
 hi NonText          term=bold cterm=bold ctermfg=9 gui=bold guifg=RoyalBlue guibg=grey15
-hi Normal           ctermfg=15 ctermbg=0 guifg=White guibg=grey15 " background
+hi Normal           ctermfg=15 ctermbg=0 guifg=White guibg=grey15 "background
 hi Operator         guibg=bg guifg=#ff0000 gui=none
 hi Pmenu            ctermbg=13 guibg=Magenta
 hi PmenuSbar        ctermbg=7 guibg=Grey
@@ -77,6 +77,9 @@ hi lCursor          guifg=bg guibg=fg
 hi rubyPredefinedVariable   guibg=bg guifg=#ffa0a0 gui=none
 hi rubyRegexpQuantifier     guifg=wheat
 hi htmlEndTag guifg=#ffd700
+
+hi coffeeObjAssign guibg=bg guifg=#ffd700 gui=bold
+hi coffeeExtendedOp guibg=bg guifg=#ffd700 gui=none
 
 hi NERDTreeCMD      guifg=#ffd700
 hi NERDTreeCWD      guifg=#ffd700

@@ -15,6 +15,7 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 export PROMPT_COMMAND="history -a"
 
+source ~/.bash_git.sh
 
 alias f='open -a Finder '
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -39,5 +40,34 @@ alias prc='pry -r .config/environment'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+function pgrest() { pg_restore --verbose --clean --no-acl --no-owner -h localhost -d $1 $2; }
+
+alias hk='heroku'
+
+extract () {
+  if [ $# -ne 1 ]
+  then
+    echo "Error: No file specified."
+    return 1
+  fi
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2) tar xvjf $1   ;;
+			*.tar.gz)  tar xvzf $1   ;;
+			*.bz2)     bunzip2 $1    ;;
+			*.rar)     unrar x $1    ;;
+			*.gz)      gunzip $1     ;;
+			*.tar)     tar xvf $1    ;;
+			*.tbz2)    tar xvjf $1   ;;
+			*.tgz)     tar xvzf $1   ;;
+			*.zip)     unzip $1      ;;
+			*.Z)       uncompress $1 ;;
+			*.7z)      7z x $1       ;;
+			*)         echo "'$1' cannot be extracted via extract" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}
 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
