@@ -1,10 +1,9 @@
 set nocompatible
-
 call pathogen#infect()
 syntax on
 filetype on               " enable filetype detection
 filetype plugin indent on
-
+set encoding=utf-8
 " -------------------------------
 "  opções
 " -------------------------------
@@ -62,8 +61,22 @@ endif
 if has('statusline')
     set laststatus=2     
     " a statusline, also on steroids
-    set statusline=%{fugitive#statusline()}
-    set statusline+=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P[%b]
+    set statusline=%m
+    set statusline+=%t
+    set statusline+=%<\ 
+    set statusline+=[%{strlen(&ft)?&ft:'none'},
+    set statusline+=\ %{strlen(&fenc)?&fenc:'none'},
+    set statusline+=\ %{&ff}]
+    set statusline+=%=
+    set statusline+=:\b%n
+    set statusline+=%{fugitive#statusline()}
+    set statusline+=%r%w\ %l,%c%V\ [%b,0x%-8B]
+    set statusline+=%P
+    let g:Powerline_symbols = 'unicode'
+    let g:Powerline_dividers_override = ['>', '>', '<<', '<']
+    let g:Powerline_stl_path_style = 'short'
+    call Pl#Theme#InsertSegment('charcode', 'before', 'fileformat')
+    let g:Powerline_colorscheme = 'my'
 endif
 
 " I forget. I think this changes the mode macvim goes into
@@ -215,6 +228,8 @@ endif
 " Common file types.
 auto BufNewFile,BufRead [cC]apfile set filetype=ruby
 auto BufNewFile,BufRead Gemfile* set filetype=ruby
+auto BufNewFile,BufRead Vagrantfile set filetype=ruby
+auto BufNewFile,BufRead Cheffile set filetype=ruby
 auto BufNewFile,BufRead *.ru set filetype=ruby
 auto BufNewFile,BufRead *.erb set filetype=eruby
 auto BufNewFile,BufRead *.sc set filetype=scheme
@@ -315,8 +330,6 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 " MISC FUN
 " -------------------
 
-nnoremap <F3> :NumbersToggle<CR>
-
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
@@ -332,3 +345,4 @@ endfunc
 autocmd VimEnter * wincmd p     " set focus on opened buffer and not nerdtree
 " quit when nerdtree is the last buffer standing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
