@@ -70,4 +70,7 @@ extract () {
 	fi
 }
 
+growl() { echo -e $'\e]9;'${1}'\007' ; return  ; }
+
+
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm

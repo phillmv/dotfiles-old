@@ -53,7 +53,7 @@ hi SpellCap         term=reverse ctermbg=9 gui=undercurl guisp=Blue
 hi SpellLocal       term=underline ctermbg=11 gui=undercurl guisp=Cyan
 hi SpellRare        term=reverse ctermbg=13 gui=undercurl guisp=Magenta
 hi Statement        term=bold ctermfg=14 guibg=bg guifg=#ffff60 gui=bold
-hi StatusLine       term=bold,reverse cterm=bold,reverse guifg=grey40 guibg=white
+hi StatusLine       term=bold,reverse cterm=bold,reverse guifg=grey15 guibg=white
 hi StatusLineNC     term=reverse cterm=reverse guifg=grey15 guibg=#c2bfa5
 hi String           guibg=bg guifg=#40A629 gui=none " dark greenish
 hi TabLine          term=underline cterm=underline ctermfg=15 ctermbg=8 gui=underline guibg=DarkGrey
@@ -89,4 +89,9 @@ hi NERDTreeUp       guifg=#40A629
 
 " for completion menu
 hi Pmenu ctermbg=238 guibg=brown gui=bold
+
+
+highlight def StatusLineModified           term=bold cterm=bold,reverse ctermfg=DarkRed  gui=bold guibg=black guifg=white
+highlight def StatusLineModifiedNC         term=reverse      cterm=reverse      ctermfg=DarkRed  gui=reverse    guibg=white guifg=grey40
+
 
