@@ -6,7 +6,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export EDITOR='vim'
 export PS1='\[\033[01;32m\]\h\[\033[01;34m\]:\w $\[\033[00m\] '
 export MANPATH=/Users/phillmv/local/share/man:$MANPATH
-export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/Users/phillmv/local/bin:/sw/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
+export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/sbin:/usr/local/bin:/Users/phillmv/local/bin:/sw/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
 alias ls='ls --color'
 set -o vi
 
@@ -72,5 +72,17 @@ extract () {
 
 growl() { echo -e $'\e]9;'${1}'\007' ; return  ; }
 
+reload_mysql() {
+  db_name=`ruby -ryaml -e "puts YAML.load(File.read('config/database.yml'))['development']['database']"`
+  echo Reloading $db_name with $1
+  sleep 2
+  bundle exec rake db:drop && bundle exec rake db:create && mysql -u root $db_name < $1
+}
+
 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

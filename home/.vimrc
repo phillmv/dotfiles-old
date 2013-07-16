@@ -1,4 +1,5 @@
 set nocompatible
+
 call pathogen#infect()
 syntax on
 filetype on               " enable filetype detection
@@ -31,15 +32,13 @@ set number
 set ruler
 set visualbell            " shut the fuck up
 
-" VERA SANS MONO FO LIFE
-set guifont=Bitstream\ Vera\ Sans\ Mono:h12
-set guioptions-=T         " no macvim toolbar
 
 set wildignore+=*.log,*.jpg,*.png,*.gif,*.swp,vendor/rails/**
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
+set wildignore+=*.pdf,*.jpg,*.jpeg
 
 ""
 "" Backup and swap files
@@ -99,10 +98,17 @@ vmap <S-right> l
 
 
 if has("gui_macvim") && has("gui_running")
+
+    set fuoptions=maxvert,maxhorz
+    au GUIEnter * set fullscreen
+    " VERA SANS MONO FO LIFE
+    set guifont=Bitstream\ Vera\ Sans\ Mono:h12
+    set guioptions-=T         " no macvim toolbar
+
     set macmeta           " Necessary for using meta key in mappings on OSX
     let macvim_skip_cmd_opt_movement = 1 " Prevent MacVim from mapping fake HOME/END to M-arrow keys.
     "let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
-       
+
 
     " alas I am still a fan of the SYSTEM WIDE DEFAULT OS BEHAVIOUR
     map <D-right> $
@@ -165,10 +171,14 @@ if has("gui_macvim") && has("gui_running")
     map  <D-9> 9gt
     imap <D-9> <Esc>9gt
 
-    " NERDCommenter
-    vmap <D-">  <Plug>NERDCommenterAlignBoth gv
-    vmap <D-\>  <Plug>NERDCommenterToggle gv
-    nmap <D-\>  <Plug>NERDCommenterToggle
+    " TComment
+
+    nmap <D-'>  :TComment<CR>
+    vmap <D-'>  :TComment<CR>
+    imap <D-'>  <Esc>:TComment<CR>a
+    " vmap <D-">  <Plug>NERDCommenterAlignBoth gv
+    " vmap <D-\>  <Plug>NERDCommenterToggle gv
+    " nmap <D-\>  <Plug>NERDCommenterToggle
 
   else
 
@@ -243,7 +253,7 @@ au FileType make set noexpandtab
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-map <Leader>1 :NERDTree<CR>
+map <Leader>1 :NERDTreeFind<CR>
 
 " make commandT go from the root project folder
 map <Leader>r :exe "CommandT" b:rails_root<CR>
