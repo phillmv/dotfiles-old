@@ -1,7 +1,9 @@
 export EC2_HOME=~/.ec2
 export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
 export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
+# export JAVA_HOME=~/Library/Java/JavaVirtualMachines/jdk1.7.0.jdk/Contents/Home
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
+# export JRUBY_OPTS="-J-XX:MaxPermSize=1024M -J-Djruby.reify.classes=true"
 
 export EDITOR='vim'
 export PS1='\[\033[01;32m\]\h\[\033[01;34m\]:\w $\[\033[00m\] '
