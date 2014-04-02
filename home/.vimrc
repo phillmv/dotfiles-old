@@ -5,6 +5,11 @@ syntax on
 filetype on               " enable filetype detection
 filetype plugin indent on
 set encoding=utf-8
+
+" for liquid shopify stuff
+" autocmd BufNewFile,BufReadPost *.js.liquid let b:liquid_subtype = 'javascript'
+" autocmd BufNewFile,BufReadPost *.css.liquid let b:liquid_subtype = 'css'
+
 " -------------------------------
 "  opções
 " -------------------------------
@@ -256,7 +261,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <Leader>1 :NERDTreeFind<CR>
 
 " make commandT go from the root project folder
-map <Leader>r :exe "CommandT" b:rails_root<CR>
+" map <Leader>r :exe "CommandT" b:rails_root<CR>
 map <Leader>t :CommandT<CR>
 map <Leader>tr :CommandTFlush<CR>
 
