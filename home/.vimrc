@@ -249,6 +249,7 @@ auto BufNewFile,BufRead *.ru set filetype=ruby
 auto BufNewFile,BufRead *.erb set filetype=eruby
 auto BufNewFile,BufRead *.sc set filetype=scheme
 auto BufNewFile,BufRead *.json set ft=javascript
+auto BufNewFile,BufRead *.go set ft=go
 au FileType make set noexpandtab
 
 

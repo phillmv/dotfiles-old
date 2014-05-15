@@ -2,13 +2,14 @@ export EC2_HOME=~/.ec2
 export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
 export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
 # export JAVA_HOME=~/Library/Java/JavaVirtualMachines/jdk1.7.0.jdk/Contents/Home
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
+# export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 # export JRUBY_OPTS="-J-XX:MaxPermSize=1024M -J-Djruby.reify.classes=true"
 
 export EDITOR='vim'
-export PS1='\[\033[01;32m\]\h\[\033[01;34m\]:\w $\[\033[00m\] '
+# export PS1='\[\033[01;32m\]\h\[\033[01;34m\]:\w $\[\033[00m\] '
+export PS1='\[\e[1;32m\]\h\[\e[1;34m\]:\w $\[\e[00m\] '
 export MANPATH=/Users/phillmv/local/share/man:$MANPATH
-export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/sbin:/usr/local/bin:/Users/phillmv/local/bin:/sw/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
+export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/sbin:/usr/local/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
 alias ls='ls --color'
 set -o vi
 
@@ -16,6 +17,9 @@ export HISTSIZE=5000
 export HISTCONTROL=ignoreboth
 shopt -s histappend
 export PROMPT_COMMAND="history -a"
+export CC=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/gcc-4.2
+export CXX=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/g++-4.2
+export CPP=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/cpp-4.2
 
 source ~/.bash_git.sh
 
@@ -35,7 +39,6 @@ alias log='git log'
 alias checkout='git checkout'
 alias grep='grep -rn --colour'
 alias taggit='ctags -R --exclude=.git --exclude=log *'
-alias ack='ack -a'
 alias be="bundle exec"
 alias bes="be snapshot"
 alias prc='pry -r .config/environment'
@@ -81,10 +84,8 @@ reload_mysql() {
   bundle exec rake db:drop && bundle exec rake db:create && mysql -u root $db_name < $1
 }
 
-
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
