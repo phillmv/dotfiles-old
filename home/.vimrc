@@ -6,10 +6,6 @@ filetype on               " enable filetype detection
 filetype plugin indent on
 set encoding=utf-8
 
-" for liquid shopify stuff
-" autocmd BufNewFile,BufReadPost *.js.liquid let b:liquid_subtype = 'javascript'
-" autocmd BufNewFile,BufReadPost *.css.liquid let b:liquid_subtype = 'css'
-
 " -------------------------------
 "  opções
 " -------------------------------
@@ -261,10 +257,6 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <Leader>1 :NERDTreeFind<CR>
 
-" make commandT go from the root project folder
-" map <Leader>r :exe "CommandT" b:rails_root<CR>
-map <Leader>t :CommandT<CR>
-map <Leader>tr :CommandTFlush<CR>
 
 " Dealing with splits - thanks, Andrey
 map <M-right> <C-w>l
@@ -285,9 +277,31 @@ map <M-[> :bprev<CR>
 map <M-backspace> :bdelete<CR>
 
 
-nnoremap <leader>rails :cd b:rails_root<CR>:pwd<CR>
+" ctrlp {
+    let g:ctrlp_match_window = 'top'
+    let g:ctrlp_cmd = 'CtrlPMixed' " Search all the things.
+    let g:ctrlp_working_path_mode = '' " disabled 
+    let g:ctrlp_lazy_update = 1
+    let g:ctrlp_mruf_max = 25
+    let g:ctrlp_custom_ignore = {
+        \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+        \ 'file': '\.exe$\|\.so$\|\.dll$' }
 
-let g:CommandTMatchWindowAtTop=1
+    let g:ctrlp_user_command = {
+        \ 'types': {
+            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+        \ },
+        \ 'fallback': 'find %s -type f'
+    \ }
+    " Reuse already-open buffers? (Default: 'Et')
+    let g:ctrlp_switch_buffer = 100
+    let g:ctrlp_reuse_window = 'NERD'
+
+    nnoremap <silent> <leader>t :CtrlP<CR>
+    nnoremap <silent> <leader>r :CtrlPMRU<CR>
+    " nnoremap <leader>p :CtrlPTag<cr> " Ctags integration
+"}
 
 " sane movement
 nnoremap j gj
@@ -302,6 +316,9 @@ inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 vmap <left> h
 vmap <right> l
+" Retain visual select when indenting
+vmap > >gv 
+vmap < <gv
 
 inoremap jj <Esc>
 
@@ -358,7 +375,7 @@ endfunc
 " set up default nerdtree settings
 "autocmd vimenter * NERDTree " open by default
 "autocmd vimenter * if !argc() | NERDTree | endif " open even if no files are selected
-autocmd VimEnter * wincmd p     " set focus on opened buffer and not nerdtree
+" autocmd VimEnter * wincmd p     " set focus on opened buffer and not nerdtree
 " quit when nerdtree is the last buffer standing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
