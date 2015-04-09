@@ -41,6 +41,25 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
 set wildignore+=*.pdf,*.jpg,*.jpeg
 
+" add certain tags to html indent
+let g:html_indent_inctags="section"
+
+""
+"" HANDLING FILES
+""
+" Common file types.
+auto BufNewFile,BufRead [cC]apfile set filetype=ruby
+auto BufNewFile,BufRead Gemfile* set filetype=ruby
+auto BufNewFile,BufRead Vagrantfile set filetype=ruby
+auto BufNewFile,BufRead Cheffile set filetype=ruby
+auto BufNewFile,BufRead *.ru set filetype=ruby
+auto BufNewFile,BufRead *.erb set filetype=eruby
+auto BufNewFile,BufRead *.sc set filetype=scheme
+auto BufNewFile,BufRead *.json set ft=javascript
+auto BufNewFile,BufRead *.go set ft=go
+au FileType make set noexpandtab
+
+
 ""
 "" Backup and swap files
 ""
@@ -49,6 +68,10 @@ set backupdir=~/.vim/_backup/    " where to put backup files.
 set directory=~/.vim/_temp/      " where to put swap files.
 
 colorscheme reslate
+
+""
+"" STATUS
+""
 
 if has('cmdline_info')
     set ruler             " show the ruler
@@ -78,6 +101,10 @@ if has('statusline')
     call Pl#Theme#InsertSegment('charcode', 'before', 'fileformat')
     let g:Powerline_colorscheme = 'my'
 endif
+
+""
+"" BINDINGS
+""
 
 " I forget. I think this changes the mode macvim goes into
 " when you select text with the mouse. (I want visual)
@@ -236,17 +263,6 @@ if has("gui_macvim") && has("gui_running")
     imap <C-9> <Esc>9gt
 endif
 
-" Common file types.
-auto BufNewFile,BufRead [cC]apfile set filetype=ruby
-auto BufNewFile,BufRead Gemfile* set filetype=ruby
-auto BufNewFile,BufRead Vagrantfile set filetype=ruby
-auto BufNewFile,BufRead Cheffile set filetype=ruby
-auto BufNewFile,BufRead *.ru set filetype=ruby
-auto BufNewFile,BufRead *.erb set filetype=eruby
-auto BufNewFile,BufRead *.sc set filetype=scheme
-auto BufNewFile,BufRead *.json set ft=javascript
-auto BufNewFile,BufRead *.go set ft=go
-au FileType make set noexpandtab
 
 
 " ----------------------------------
@@ -275,33 +291,6 @@ map <M->> <C-w>L " Convert horizontal to vertical split
 map <M-]> :bnext<CR>
 map <M-[> :bprev<CR>
 map <M-backspace> :bdelete<CR>
-
-
-" ctrlp {
-    let g:ctrlp_match_window = 'top'
-    let g:ctrlp_cmd = 'CtrlPMixed' " Search all the things.
-    let g:ctrlp_working_path_mode = '' " disabled 
-    let g:ctrlp_lazy_update = 1
-    let g:ctrlp_mruf_max = 25
-    let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-        \ 'file': '\.exe$\|\.so$\|\.dll$' }
-
-    let g:ctrlp_user_command = {
-        \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-        \ },
-        \ 'fallback': 'find %s -type f'
-    \ }
-    " Reuse already-open buffers? (Default: 'Et')
-    let g:ctrlp_switch_buffer = 100
-    let g:ctrlp_reuse_window = 'NERD'
-
-    nnoremap <silent> <leader>t :CtrlP<CR>
-    nnoremap <silent> <leader>r :CtrlPMRU<CR>
-    " nnoremap <leader>p :CtrlPTag<cr> " Ctags integration
-"}
 
 " sane movement
 nnoremap j gj
@@ -347,6 +336,8 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
+" map :etruby :tabe<bar>:set filetype=ruby 
+
 " Swap two words
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 
@@ -358,6 +349,35 @@ nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+
+
+
+" ctrlp {
+    let g:ctrlp_match_window = 'top'
+    let g:ctrlp_cmd = 'CtrlPMixed' " Search all the things.
+    let g:ctrlp_working_path_mode = '' " disabled 
+    let g:ctrlp_lazy_update = 1
+    let g:ctrlp_mruf_max = 25
+    let g:ctrlp_custom_ignore = {
+        \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+        \ 'file': '\.exe$\|\.so$\|\.dll$' }
+
+    let g:ctrlp_user_command = {
+        \ 'types': {
+            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+        \ },
+        \ 'fallback': 'find %s -type f'
+    \ }
+    " Reuse already-open buffers? (Default: 'Et')
+    let g:ctrlp_switch_buffer = 100
+    let g:ctrlp_reuse_window = 'NERD'
+
+    nnoremap <silent> <leader>t :CtrlP<CR>
+    nnoremap <silent> <leader>r :CtrlPClearCache<CR>
+    " nnoremap <leader>p :CtrlPTag<cr> " Ctags integration
+"}
+
 
 " -------------------
 " MISC FUN
@@ -379,3 +399,28 @@ endfunc
 " quit when nerdtree is the last buffer standing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+
+
+"go shit
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>c <Plug>(go-test)
+" au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+"If you change the command used by :GoFmt to goimports, it will also manage your imports (e.g., by inserting the missing “fmt” import in the above example):
+let g:go_fmt_command = "goimports"
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+"lol assert pipeline
+autocmd BufNewFile,BufRead *.jsx.erb let b:jsx_ext_found = 1
+autocmd BufNewFile,BufRead *.jsx.erb set filetype=javascript
