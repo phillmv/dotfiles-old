@@ -4,15 +4,16 @@ call pathogen#infect()
 syntax on
 filetype on               " enable filetype detection
 filetype plugin indent on
+" set omnifunc=syntaxcomplete#Complete
 set encoding=utf-8
 
 " -------------------------------
-"  opções
+"  vim options
 " -------------------------------
 set wrap                  " wrap long lines
 set autoindent            " indent at the same level of the previous line
 
-set tabstop=4
+set tabstop=2
 set shiftwidth=2          " when reindenting how far?
 set softtabstop=2
 set expandtab
@@ -41,24 +42,9 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
 set wildignore+=*.pdf,*.jpg,*.jpeg
 
-" add certain tags to html indent
-let g:html_indent_inctags="section"
-
-""
-"" HANDLING FILES
-""
-" Common file types.
-auto BufNewFile,BufRead [cC]apfile set filetype=ruby
-auto BufNewFile,BufRead Gemfile* set filetype=ruby
-auto BufNewFile,BufRead Vagrantfile set filetype=ruby
-auto BufNewFile,BufRead Cheffile set filetype=ruby
-auto BufNewFile,BufRead *.ru set filetype=ruby
-auto BufNewFile,BufRead *.erb set filetype=eruby
-auto BufNewFile,BufRead *.sc set filetype=scheme
-auto BufNewFile,BufRead *.json set ft=javascript
-auto BufNewFile,BufRead *.go set ft=go
-au FileType make set noexpandtab
-
+" ctags
+set tags+=gems.tags
+set tags+=stdlib.tags
 
 ""
 "" Backup and swap files
@@ -68,6 +54,7 @@ set backupdir=~/.vim/_backup/    " where to put backup files.
 set directory=~/.vim/_temp/      " where to put swap files.
 
 colorscheme reslate
+
 
 ""
 "" STATUS
@@ -95,15 +82,10 @@ if has('statusline')
     set statusline+=%{fugitive#statusline()}
     set statusline+=%r%w\ %l,%c%V\ [%b,0x%-8B]
     set statusline+=%P
-    let g:Powerline_symbols = 'unicode'
-    let g:Powerline_dividers_override = ['>', '>', '<<', '<']
-    let g:Powerline_stl_path_style = 'short'
-    call Pl#Theme#InsertSegment('charcode', 'before', 'fileformat')
-    let g:Powerline_colorscheme = 'my'
 endif
 
 ""
-"" BINDINGS
+"" KEY BINDINGS
 ""
 
 " I forget. I think this changes the mode macvim goes into
@@ -210,6 +192,9 @@ if has("gui_macvim") && has("gui_running")
 
   else
 
+    " I almost never use vim in terminal mode, so this is kind 
+    " of broken, alas. Should try to match it up with the above.
+    "
     " Map command-[ and command-] to indenting or outdenting
     " while keeping the original selection in visual mode
     vmap <A-]> >gv
@@ -268,10 +253,14 @@ endif
 " ----------------------------------
 " MAPPINGS
 " ----------------------------------
-
+ " C-i goes 'forwards'
+ " C-o goes 'backwards'
+ " leader-p brigns up ctags search
+map <C-}> <C-w><C-]>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <Leader>1 :NERDTreeFind<CR>
+map <Leader>! :NERDTreeToggle<CR>
 
 
 " Dealing with splits - thanks, Andrey
@@ -330,6 +319,7 @@ nmap <silent> <leader>cd :lcd %:h<CR>
 
 " Some helpers to edit mode
 " http://vimcasts.org/e/14
+" open files from wd of current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
@@ -351,6 +341,69 @@ nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 
+
+""
+"" HANDLING FILES
+""
+" ruby {
+  auto BufNewFile,BufRead [cC]apfile set filetype=ruby
+  auto BufNewFile,BufRead Gemfile* set filetype=ruby
+  auto BufNewFile,BufRead Vagrantfile set filetype=ruby
+  auto BufNewFile,BufRead Cheffile set filetype=ruby
+  auto BufNewFile,BufRead *.ru set filetype=ruby
+  auto BufNewFile,BufRead *.erb set filetype=eruby
+
+  "lol assert pipeline
+  autocmd BufNewFile,BufRead *.jsx.erb let b:jsx_ext_found = 1
+  autocmd BufNewFile,BufRead *.jsx.erb set filetype=javascript
+
+  "autocomplete pls?
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+  au FileType ruby nmap <Leader>i :vsplit<CR> <C-w><C-l><C-]>
+  au FileType ruby nmap <Leader>I <C-]>
+ 
+" }
+
+
+" golang {
+  auto BufNewFile,BufRead *.go set ft=go
+  au FileType go nmap <Leader>i <Plug>(go-info)
+  au FileType go nmap <Leader>gd <Plug>(go-doc)
+  au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+  au FileType go nmap <Leader>s <Plug>(go-implements)
+
+  au FileType go nmap <leader>r <Plug>(go-run)
+  au FileType go nmap <leader>b <Plug>(go-build)
+  au FileType go nmap <leader>c <Plug>(go-test)
+  " au FileType go nmap <leader>c <Plug>(go-coverage)
+  au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+  au FileType go nmap <Leader>ds <Plug>(go-def-split)
+  "If you change the command used by :GoFmt to goimports, it will also manage your imports (e.g., by inserting the missing “fmt” import in the above example):
+  let g:go_fmt_command = "goimports"
+
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+
+" }
+
+auto BufNewFile,BufRead *.sc set filetype=scheme
+auto BufNewFile,BufRead *.json set ft=javascript
+au FileType make set noexpandtab
+
+
+" add certain tags to html indent
+let g:html_indent_inctags="section"
+
+
+      
+" =======
+" PLUGINS
+" =======
 
 " ctrlp {
     let g:ctrlp_match_window = 'top'
@@ -375,7 +428,8 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
     nnoremap <silent> <leader>t :CtrlP<CR>
     nnoremap <silent> <leader>r :CtrlPClearCache<CR>
-    " nnoremap <leader>p :CtrlPTag<cr> " Ctags integration
+    "Ctags integration
+    nnoremap <leader>p :CtrlPTag<cr> 
 "}
 
 
@@ -399,28 +453,4 @@ endfunc
 " quit when nerdtree is the last buffer standing
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-
-
-"go shit
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>s <Plug>(go-implements)
-
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>c <Plug>(go-test)
-" au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-"If you change the command used by :GoFmt to goimports, it will also manage your imports (e.g., by inserting the missing “fmt” import in the above example):
-let g:go_fmt_command = "goimports"
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-
-"lol assert pipeline
-autocmd BufNewFile,BufRead *.jsx.erb let b:jsx_ext_found = 1
-autocmd BufNewFile,BufRead *.jsx.erb set filetype=javascript
+map <Leader>U :UndotreeToggle<cr>
