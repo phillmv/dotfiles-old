@@ -432,6 +432,12 @@ let g:html_indent_inctags="section"
     nnoremap <leader>p :CtrlPTag<cr> 
 "}
 
+" rainbow parens {
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+" }
 
 " -------------------
 " MISC FUN

@@ -1,15 +1,27 @@
 export EC2_HOME=~/.ec2
 export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
 export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
+export AWS_ACCESS_KEY=`cat ~/.ec2/access_key`
+export AWS_SECRET_KEY=`cat ~/.ec2/secret_key`
 # export JAVA_HOME=~/Library/Java/JavaVirtualMachines/jdk1.7.0.jdk/Contents/Home
 # export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
-# export JRUBY_OPTS="-J-XX:MaxPermSize=1024M -J-Djruby.reify.classes=true"
+export JRUBY_OPTS="-J-XX:MaxPermSize=1024M -J-Djruby.reify.classes=true"
 
 export EDITOR='vim'
 # export PS1='\[\033[01;32m\]\h\[\033[01;34m\]:\w $\[\033[00m\] '
 export PS1='\[\e[1;32m\]\h\[\e[1;34m\]:\w $\[\e[00m\] '
 export MANPATH=/Users/phillmv/local/share/man:$MANPATH
 export PATH=/usr/local/Cellar/coreutils/8.15/libexec/gnubin:/usr/local/sbin:/usr/local/bin:/usr/local/mysql/bin:/usr/local/mysql/scripts:$EC2_HOME/bin:$PATH
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+export GOPATH=$HOME/code/go
+export PATH=$PATH:$GOPATH/bin
+export GOSRC="${GOPATH}/src"
+export GOBIN="${GOPATH}/bin"
+
+# LOLCLJ
+export PATH=$PATH:/Users/phillmv/code/c/datomic/bin
+
 alias ls='ls --color'
 set -o vi
 
@@ -21,15 +33,17 @@ export PROMPT_COMMAND="history -a"
 # export CXX=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/g++-4.2
 # export CPP=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/cpp-4.2
 
-source ~/.bash_git.sh
+
+
+# source ~/.bash_git.sh
 
 alias f='open -a Finder '
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 alias g='open -a macvim'
-alias m='mvim'
+alias v='mvim'
 alias cherry='git cherry-pick'
 alias status='git status'
 alias branch='git branch'
