@@ -335,7 +335,7 @@ nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 nmap <silent> <leader>ul :t.\|s/./=/g\|:nohls<cr>
 
 " set text wrapping toggles
-nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
+" nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -429,7 +429,7 @@ let g:html_indent_inctags="section"
     nnoremap <silent> <leader>t :CtrlP<CR>
     nnoremap <silent> <leader>r :CtrlPClearCache<CR>
     "Ctags integration
-    nnoremap <leader>p :CtrlPTag<cr> 
+    nnoremap <leader>] :CtrlPTag<cr> 
 "}
 
 " rainbow parens {
