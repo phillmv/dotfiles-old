@@ -307,12 +307,12 @@ cmap w!! %!sudo tee > /dev/null %
 
 " upper/lower word
 " selection reversed from Janus
-nmap <leader>U mQviwU`Q
-nmap <leader>L mQviwu`Q
+nmap <leader>u mQviwU`Q
+nmap <leader>l mQviwu`Q
 
-" upper/lower first char of word
-nmap <leader>u mQgewvU`Q
-nmap <leader>l mQgewvu`Q
+" " upper/lower first char of word
+" nmap <leader>u mQgewvU`Q
+" nmap <leader>l mQgewvu`Q
 
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<CR>
@@ -397,7 +397,7 @@ au FileType make set noexpandtab
 
 
 " add certain tags to html indent
-let g:html_indent_inctags="section"
+let g:html_indent_inctags="section\|dt"
 
 
       

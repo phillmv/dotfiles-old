@@ -25,6 +25,9 @@ export PATH=$PATH:/Users/phillmv/code/c/datomic/bin
 alias ls='ls --color'
 set -o vi
 
+# omg http://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
+shopt -s checkwinsize
+
 export HISTSIZE=5000
 export HISTCONTROL=ignoreboth
 shopt -s histappend
@@ -33,6 +36,14 @@ export PROMPT_COMMAND="history -a"
 # export CXX=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/g++-4.2
 # export CPP=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/cpp-4.2
 
+
+
+
+# lol history per andrew louis
+PROMPT_COMMAND='history -a'
+export HISTSIZE=999999
+export HISTFILESIZE=999999999
+export HISTTIMEFORMAT="%d/%m/%y %T "
 
 
 # source ~/.bash_git.sh
